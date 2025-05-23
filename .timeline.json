@@ -1,5 +1,5 @@
 {
-  "timeline_index": 95,
+  "timeline_index": 107,
   "planner": {
     "Team Leader": {
       "1": {
@@ -13,23 +13,20 @@
         "is_finished": true,
         "assignee": "Alex",
         "start_at": 1748032589.690621,
-        "end_at": 1748033162.7348092
+        "end_at": 1748033627.4715226
       },
-      "current_task_id": "1",
+      "current_task_id": "2",
       "2": {
         "task_id": "2",
-        "dependent_task_ids": [
-          "1"
-        ],
-        "instruction": "Design the system architecture for the Jasmin SMPP SMS Gateway web interface. Include components for CLI command execution, user management, dashboard interface, and SMS statistics visualization. Specify integration points with the Jasmin SMPP gateway backend.",
+        "dependent_task_ids": [],
+        "instruction": "Create a GitHub repository and push the Jasmin SMPP dashboard code. Include:\n1. Complete source code from /data/chats/015rz/workspace\n2. README.md with setup and deployment instructions\n3. .gitignore file\n4. Environment configuration examples\n5. Documentation for API endpoints and features\n6. License file",
         "task_type": "general",
         "code": "",
         "result": "",
         "is_success": false,
-        "is_finished": true,
-        "assignee": "Bob",
-        "start_at": 1748029826.4849243,
-        "end_at": 1748030039.0010238
+        "is_finished": false,
+        "assignee": "Alex",
+        "start_at": 1748033627.4715269
       },
       "3": {
         "task_id": "3",
@@ -135,7 +132,18 @@
     "92": 1,
     "93": 1,
     "94": 1,
-    "95": 1
+    "95": 1,
+    "96": 1,
+    "98": 1,
+    "99": 1,
+    "100": 1,
+    "101": 1,
+    "102": 1,
+    "103": 1,
+    "104": 1,
+    "105": 1,
+    "106": 1,
+    "107": 1
   },
   "preview_servers": {
     "f64b147b-117b-4b91-941d-0a629fff70c0": {
@@ -150,6 +158,8 @@
     }
   },
   "deploy": {
-    "proj_name": "jasmin-smpp-dashboard-ni4287"
+    "proj_name": "",
+    "version": 1,
+    "deploy_url": "https://jasmin-smpp-dashboard-ni4287-v1.mgx.world"
   }
 }

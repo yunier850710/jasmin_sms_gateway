@@ -1,39 +1,47 @@
-# React + Vite Template
+# Jasmin SMPP SMS Gateway Dashboard
 
-A modern React template for web applications and games, featuring React 18, Vite, TailwindCSS, and Material UI.
+## Overview
+The Jasmin SMPP SMS Gateway Dashboard is a modern web interface for managing Jasmin SMS Gateway servers. It provides real-time monitoring, configuration management, and detailed analytics for SMS traffic and gateway performance.
 
-## Project Structure
-
-```
-├── src/
-│   ├── App.jsx          # Main application component
-│   ├── main.jsx         # Application entry point
-│   └── index.css        # Global styles (Tailwind)
-├── public/              # Static assets
-├── index.html           # HTML template
-├── vite.config.js       # Vite configuration
-├── tailwind.config.js   # Tailwind configuration
-├── postcss.config.js    # PostCSS configuration
-└── eslint.config.js     # ESLint configuration
-```
-
-## Development Guidelines
-
-- Modify `index.html` and `src/App.jsx` as needed
-- Create new folders or files in `src/` directory as needed
-- Style components using TailwindCSS utility classes
-- Avoid modifying `src/main.jsx` and `src/index.css`
-- Only modify `vite.config.js` if absolutely necessary
-
-## Available Scripts
-- `pnpm install` - Install dependencies
-- `pnpm run dev` - Start development server
-- `pnpm run lint` - Lint source files
+## Features
+- Real-time SMS traffic monitoring
+- User and group management
+- SMPP connector configuration
+- Route management
+- Detailed SMS statistics and analytics
+- Secure authentication and authorization
+- CLI integration
+- Error logging and monitoring
 
 ## Tech Stack
+- **Frontend**: React.js with Redux
+- **UI**: Tailwind CSS
+- **Build Tool**: Vite
+- **State Management**: Redux + Context API
+- **Routing**: React Router v6
+- **HTTP Client**: Axios
 
-- React
-- Vite
-- TailwindCSS
-- ESLint
-- Javascript
+## Prerequisites
+- Node.js 16.x or later
+- pnpm package manager
+- Jasmin SMS Gateway server
+
+## Setup Instructions
+
+1. Clone the repository:
+
+
+2. Install dependencies:
+
+
+3. Copy the environment file and configure:
+
+
+4. Configure your environment variables in `.env`
+
+5. Start development server:
+
+
+## Development Guide
+
+### Project Structure
