@@ -156,7 +156,16 @@
       "cmd": "cd /data/chats/015rz/workspace/react_template && pnpm i && pnpm run dev",
       "timeline_index": 78,
       "status": "initializing",
-      "logs": []
+      "logs": [
+        "\n",
+        "\n",
+        "> react-template@0.0.0 dev /data/chats/015rz/workspace/react_template\n",
+        "> vite\n",
+        "\n",
+        "\n",
+        "  VITE v5.4.3  ready in 428 ms\n",
+        "\n"
+      ]
     }
   },
   "deploy": {
