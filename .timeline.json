@@ -157,14 +157,13 @@
       "timeline_index": 78,
       "status": "initializing",
       "logs": [
-        "Restarting the service ...\n",
         "\n",
         "\n",
         "> react-template@0.0.0 dev /data/chats/015rz/workspace/react_template\n",
         "> vite\n",
         "\n",
         "\n",
-        "  VITE v5.4.3  ready in 385 ms\n",
+        "  VITE v5.4.3  ready in 365 ms\n",
         "\n"
       ]
     }
