@@ -1,5 +1,5 @@
 {
-  "timeline_index": 93,
+  "timeline_index": 95,
   "planner": {
     "Team Leader": {
       "1": {
@@ -133,7 +133,9 @@
     "90": 1,
     "91": 1,
     "92": 1,
-    "93": 1
+    "93": 1,
+    "94": 1,
+    "95": 1
   },
   "preview_servers": {
     "f64b147b-117b-4b91-941d-0a629fff70c0": {
@@ -147,5 +149,7 @@
       "logs": []
     }
   },
-  "deploy": {}
+  "deploy": {
+    "proj_name": "jasmin-smpp-dashboard-ni4287"
+  }
 }
