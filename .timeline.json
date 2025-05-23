@@ -1,21 +1,21 @@
 {
-  "timeline_index": 60,
+  "timeline_index": 80,
   "planner": {
     "Team Leader": {
       "1": {
         "task_id": "1",
         "dependent_task_ids": [],
-        "instruction": "Create a PRD for the Jasmin SMPP SMS Gateway website. Include requirements for CLI features integration, web dashboard functionality, and SMS statistics tracking by users. Research existing Jasmin SMPP SMS Gateway capabilities and CLI features that need to be implemented in the web interface.",
+        "instruction": "Analyze the current code for the Jasmin SMPP dashboard, identify errors preventing the website from opening at https://jasmin-smpp-dashboard-xmbko-015rz-78c28e.mgx.dev, and prepare a fix for these issues.",
         "task_type": "general",
         "code": "",
         "result": "",
         "is_success": false,
         "is_finished": true,
-        "assignee": "Emma",
-        "start_at": 1748029483.2816007,
-        "end_at": 1748029826.4848967
+        "assignee": "Alex",
+        "start_at": 1748032589.690621,
+        "end_at": 1748032864.2618265
       },
-      "current_task_id": "3",
+      "current_task_id": "1",
       "2": {
         "task_id": "2",
         "dependent_task_ids": [
@@ -43,7 +43,8 @@
         "is_success": false,
         "is_finished": false,
         "assignee": "Alex",
-        "start_at": 1748030039.0010428
+        "start_at": 1748030039.0010428,
+        "end_at": 1748032589.690615
       }
     }
   },
@@ -99,27 +100,38 @@
     "56": 1,
     "58": 1,
     "59": 0,
-    "60": 1
+    "60": 1,
+    "61": 1,
+    "62": 1,
+    "63": 1,
+    "64": 1,
+    "65": 1,
+    "66": 1,
+    "67": 1,
+    "68": 1,
+    "69": 1,
+    "70": 1,
+    "71": 1,
+    "72": 1,
+    "73": 1,
+    "74": 1,
+    "75": 1,
+    "76": 1,
+    "77": 1,
+    "78": 0,
+    "79": 1,
+    "80": 1
   },
   "preview_servers": {
-    "7600f888-d75a-48ba-8691-7d2daf78c28e": {
+    "f64b147b-117b-4b91-941d-0a629fff70c0": {
       "role": "Alex",
-      "port": 5173,
-      "subdomain": "jasmin-smpp-dashboard-xmbko-015rz-78c28e",
-      "server": "0f150124-dfb2-4ba3-aa74-02582ffc7d17",
-      "cmd": "pnpm i react-router-dom react-icons redux @reduxjs/toolkit react-redux axios && pnpm run lint && pnpm run dev",
-      "timeline_index": 59,
-      "status": "initializing",
-      "logs": [
-        "\n",
-        "\n",
-        "> react-template@0.0.0 dev /data/chats/015rz/workspace/react_template\n",
-        "> vite\n",
-        "\n",
-        "\n",
-        "  VITE v5.4.3  ready in 425 ms\n",
-        "\n"
-      ]
+      "port": 5174,
+      "subdomain": "jasmin-smpp-dashboard-xmbko-015rz-ff70c0",
+      "server": "220e4839-1b6b-44ea-b790-23195da36cbd",
+      "cmd": "cd /data/chats/015rz/workspace/react_template && pnpm i && pnpm run dev",
+      "timeline_index": 78,
+      "status": "success",
+      "logs": []
     }
   },
   "deploy": {}
