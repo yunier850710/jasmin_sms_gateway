@@ -1,34 +1,40 @@
 #!/bin/bash
 
-# Update package lists
-apt-get update
+# Detect Ubuntu version
+VERSION=$(lsb_release -rs)
+echo "Detected Ubuntu version: $VERSION"
 
-# Install curl if not present
-apt-get install -y curl
+# Update system
+sudo apt update && sudo apt upgrade -y
 
-# Install Node.js repository based on Ubuntu version
-UBUNTU_VERSION=$(lsb_release -rs)
+# Install curl if not installed
+sudo apt install -y curl
 
-if [ "$UBUNTU_VERSION" = "20.04" ] || [ "$UBUNTU_VERSION" = "22.04" ] || [ "$UBUNTU_VERSION" = "24.04" ]; then
-    # Install Node.js 20.x LTS
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-    apt-get install -y nodejs
-
-    # Install latest npm
-    npm install -g npm@latest
-
-    # Install pnpm
-    npm install -g pnpm@latest
-
-    # Install other dependencies
-    apt-get install -y build-essential python3-pip
-
-    echo "Installation completed successfully!"
-    echo "Node.js version: $(node -v)"
-    echo "npm version: $(npm -v)"
-    echo "pnpm version: $(pnpm -v)"
+# Add NodeSource repository based on Ubuntu version
+if [ "$VERSION" = "20.04" ] || [ "$VERSION" = "22.04" ] || [ "$VERSION" = "24.04" ]; then
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 else
-    echo "Unsupported Ubuntu version: $UBUNTU_VERSION"
-    echo "This script supports Ubuntu 20.04, 22.04, and 24.04"
+    echo "Unsupported Ubuntu version"
     exit 1
 fi
+
+# Install Node.js and npm
+sudo apt install -y nodejs
+
+# Verify installation
+node --version
+npm --version
+
+# Install pnpm
+npm install -g pnpm
+
+# Install project dependencies
+pnpm install
+
+# Create .env if not exists
+if [ ! -f .env ]; then
+    cp .env.example .env
+fi
+
+echo "Installation completed successfully!"
+echo "Please configure your .env file with your specific settings."

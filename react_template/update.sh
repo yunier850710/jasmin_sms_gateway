@@ -1,25 +1,28 @@
 #!/bin/bash
 
-# Update package lists
-apt-get update
+# Update Node.js
+echo "Updating Node.js..."
+sudo apt update
+sudo apt install -y nodejs
 
-# Upgrade Node.js to latest LTS
-curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-apt-get install -y nodejs
-
-# Update npm to latest version
-npm install -g npm@latest
-
-# Update pnpm to latest version
+# Update pnpm
+echo "Updating pnpm..."
 npm install -g pnpm@latest
 
-# Update project dependencies
+# Clean cache
+echo "Cleaning pnpm cache..."
+pnpm store prune
+
+# Remove existing dependencies
+echo "Removing existing dependencies..."
+rm -rf node_modules pnpm-lock.yaml
+
+# Reinstall dependencies
+echo "Installing dependencies..."
 pnpm install
 
-# Run lint to check for any issues
+# Run lint
+echo "Running lint..."
 pnpm run lint
 
 echo "Update completed successfully!"
-echo "Node.js version: $(node -v)"
-echo "npm version: $(npm -v)"
-echo "pnpm version: $(pnpm -v)"
