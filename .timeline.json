@@ -1,0 +1,126 @@
+{
+  "timeline_index": 60,
+  "planner": {
+    "Team Leader": {
+      "1": {
+        "task_id": "1",
+        "dependent_task_ids": [],
+        "instruction": "Create a PRD for the Jasmin SMPP SMS Gateway website. Include requirements for CLI features integration, web dashboard functionality, and SMS statistics tracking by users. Research existing Jasmin SMPP SMS Gateway capabilities and CLI features that need to be implemented in the web interface.",
+        "task_type": "general",
+        "code": "",
+        "result": "",
+        "is_success": false,
+        "is_finished": true,
+        "assignee": "Emma",
+        "start_at": 1748029483.2816007,
+        "end_at": 1748029826.4848967
+      },
+      "current_task_id": "3",
+      "2": {
+        "task_id": "2",
+        "dependent_task_ids": [
+          "1"
+        ],
+        "instruction": "Design the system architecture for the Jasmin SMPP SMS Gateway web interface. Include components for CLI command execution, user management, dashboard interface, and SMS statistics visualization. Specify integration points with the Jasmin SMPP gateway backend.",
+        "task_type": "general",
+        "code": "",
+        "result": "",
+        "is_success": false,
+        "is_finished": true,
+        "assignee": "Bob",
+        "start_at": 1748029826.4849243,
+        "end_at": 1748030039.0010238
+      },
+      "3": {
+        "task_id": "3",
+        "dependent_task_ids": [
+          "2"
+        ],
+        "instruction": "Develop the Jasmin SMPP SMS Gateway web application with all CLI features integrated into the dashboard, user management, and SMS statistics tracking. Implement the solution based on the PRD and system architecture. Ensure the project can be easily deployed to GitHub.",
+        "task_type": "general",
+        "code": "",
+        "result": "",
+        "is_success": false,
+        "is_finished": false,
+        "assignee": "Alex",
+        "start_at": 1748030039.0010428
+      }
+    }
+  },
+  "gallery_last_file": {},
+  "timeline_status": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1,
+    "5": 1,
+    "6": 1,
+    "7": 1,
+    "8": 1,
+    "9": 1,
+    "10": 1,
+    "11": 1,
+    "12": 1,
+    "13": 1,
+    "14": 1,
+    "15": 1,
+    "16": 1,
+    "17": 1,
+    "18": 1,
+    "20": 1,
+    "21": 1,
+    "22": 1,
+    "23": 1,
+    "24": 1,
+    "25": 1,
+    "26": 1,
+    "27": 0,
+    "29": 1,
+    "30": 1,
+    "31": 1,
+    "32": 1,
+    "33": 1,
+    "34": 1,
+    "35": 1,
+    "36": 1,
+    "37": 1,
+    "38": 1,
+    "39": 0,
+    "41": 1,
+    "42": 1,
+    "44": 1,
+    "45": 1,
+    "46": 0,
+    "48": 1,
+    "49": 1,
+    "50": 0,
+    "52": 1,
+    "54": 0,
+    "56": 1,
+    "58": 1,
+    "59": 0,
+    "60": 1
+  },
+  "preview_servers": {
+    "7600f888-d75a-48ba-8691-7d2daf78c28e": {
+      "role": "Alex",
+      "port": 5173,
+      "subdomain": "jasmin-smpp-dashboard-xmbko-015rz-78c28e",
+      "server": "0f150124-dfb2-4ba3-aa74-02582ffc7d17",
+      "cmd": "pnpm i react-router-dom react-icons redux @reduxjs/toolkit react-redux axios && pnpm run lint && pnpm run dev",
+      "timeline_index": 59,
+      "status": "initializing",
+      "logs": [
+        "\n",
+        "\n",
+        "> react-template@0.0.0 dev /data/chats/015rz/workspace/react_template\n",
+        "> vite\n",
+        "\n",
+        "\n",
+        "  VITE v5.4.3  ready in 425 ms\n",
+        "\n"
+      ]
+    }
+  },
+  "deploy": {}
+}

@@ -1,0 +1,165 @@
+classDiagram
+    class User {
+        +string id
+        +string username
+        +string passwordHash
+        +string email
+        +string[] roles
+        +boolean isActive
+        +Date createdAt
+        +Date updatedAt
+        +authenticate(password: string): boolean
+        +hasPermission(permission: string): boolean
+    }
+    
+    class Group {
+        +string id
+        +string name
+        +string description
+        +User[] members
+        +Object permissions
+        +Date createdAt
+        +Date updatedAt
+        +addUser(user: User): void
+        +removeUser(user: User): void
+        +hasPermission(permission: string): boolean
+    }
+    
+    class SMPPConnector {
+        +string id
+        +string name
+        +string host
+        +number port
+        +string systemId
+        +string password
+        +string systemType
+        +ConnectionStatus status
+        +Object advancedParams
+        +Date createdAt
+        +Date updatedAt
+        +connect(): Promise~boolean~
+        +disconnect(): Promise~boolean~
+        +getStatus(): ConnectionStatus
+        +updateConfig(params: Object): Promise~boolean~
+    }
+    
+    class Route {
+        +string id
+        +string type %% MO or MT
+        +string connectorId
+        +Filter[] filters
+        +number priority
+        +Date createdAt
+        +Date updatedAt
+        +matchesMessage(message: SMSMessage): boolean
+        +applyRoute(message: SMSMessage): Promise~boolean~
+    }
+    
+    class Filter {
+        +string id
+        +string type %% e.g., destination_number, source_number, content
+        +string operator %% e.g., equal, contains, regex
+        +string value
+        +evaluate(message: SMSMessage): boolean
+    }
+    
+    class SMSMessage {
+        +string id
+        +string source
+        +string destination
+        +string content
+        +Date submitTime
+        +Date doneTime
+        +string status
+        +string errorCode
+        +string userId
+        +string connectorId
+        +getDeliveryStatus(): string
+        +getDuration(): number
+    }
+    
+    class SMSStatistics {
+        +collectUserStats(userId: string, timeRange: Object): Promise~Object~
+        +collectSystemStats(timeRange: Object): Promise~Object~
+        +getMessageVolume(params: Object): Promise~Object~
+        +getDeliveryRates(params: Object): Promise~Object~
+        +generateReport(params: Object): Promise~Buffer~
+    }
+    
+    class JasminCLIAdapter {
+        +string host
+        +number port
+        +string username
+        +string password
+        +connect(): Promise~boolean~
+        +disconnect(): Promise~boolean~
+        +executeCommand(command: string): Promise~string~
+        +parseResponse(response: string): Object
+    }
+    
+    class DashboardService {
+        +getUserStats(userId: string): Promise~Object~
+        +getSystemOverview(): Promise~Object~
+        +getActiveConnectors(): Promise~SMPPConnector[]~
+        +getRecentMessages(limit: number): Promise~SMSMessage[]~
+        +getAlerts(): Promise~Object[]~
+    }
+    
+    class AuthService {
+        +login(username: string, password: string): Promise~Object~
+        +logout(token: string): Promise~boolean~
+        +validateToken(token: string): Promise~User~
+        +refreshToken(token: string): Promise~string~
+        +changePassword(userId: string, oldPassword: string, newPassword: string): Promise~boolean~
+    }
+    
+    class HttpAPIClient {
+        +string baseUrl
+        +Object headers
+        +sendSMS(params: Object): Promise~Object~
+        +checkDeliveryStatus(messageId: string): Promise~string~
+        +getBalance(userId: string): Promise~number~
+        +executeRequest(path: string, method: string, data: Object): Promise~Object~
+    }
+    
+    class ConfigurationManager {
+        +getConfig(section: string): Promise~Object~
+        +updateConfig(section: string, data: Object): Promise~boolean~
+        +backupConfig(): Promise~string~
+        +restoreConfig(backupId: string): Promise~boolean~
+        +validateConfig(config: Object): Promise~Object~
+    }
+    
+    class WebSocketManager {
+        +initializeSocket(): void
+        +subscribeToUpdates(channel: string, callback: function): string
+        +unsubscribe(subscriptionId: string): void
+        +publishUpdate(channel: string, data: Object): void
+        +handleConnection(socket: Socket): void
+        +handleDisconnection(socket: Socket): void
+    }
+    
+    class APIController {
+        +AuthService authService
+        +DashboardService dashboardService
+        +SMSStatistics statsService
+        +ConfigurationManager configManager
+        +handleRequest(req: Request, res: Response): void
+        +authenticateRequest(req: Request): Promise~User~
+        +authorizeAction(user: User, action: string): boolean
+    }
+    
+    %% Relationships
+    User "*" -- "*" Group : belongs to
+    Route "1" -- "*" Filter : contains
+    SMPPConnector -- SMSMessage : sends/receives
+    User -- SMSMessage : owns
+    JasminCLIAdapter -- SMPPConnector : manages
+    JasminCLIAdapter -- Route : configures
+    APIController -- AuthService : uses
+    APIController -- DashboardService : uses
+    APIController -- SMSStatistics : uses
+    APIController -- ConfigurationManager : uses
+    DashboardService -- SMSStatistics : uses
+    WebSocketManager -- DashboardService : notifies
+    HttpAPIClient -- SMSMessage : creates

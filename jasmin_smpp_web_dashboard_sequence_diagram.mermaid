@@ -1,0 +1,132 @@
+sequenceDiagram
+    participant Client as Web Client
+    participant API as API Server
+    participant Auth as AuthService
+    participant Dashboard as DashboardService
+    participant Stats as SMSStatistics
+    participant CLI as JasminCLIAdapter
+    participant HTTP as HttpAPIClient
+    participant WS as WebSocketManager
+    participant DB as Database
+    participant Jasmin as Jasmin SMPP Gateway
+
+    %% User Authentication Flow
+    Client->>API: POST /api/auth/login (credentials)
+    API->>Auth: login(username, password)
+    Auth->>DB: validateCredentials(username, password)
+    DB-->>Auth: user object or error
+    Auth-->>API: JWT token or error
+    API-->>Client: 200 OK (token) or 401 Unauthorized
+
+    %% Dashboard Loading Flow
+    Client->>API: GET /api/dashboard (token)
+    API->>Auth: validateToken(token)
+    Auth-->>API: validated user or error
+    API->>Dashboard: getSystemOverview()
+    Dashboard->>Stats: collectSystemStats(timeRange)
+    Stats->>DB: queryStatistics(params)
+    DB-->>Stats: statistics data
+    Dashboard->>CLI: executeCommand("connector -l")
+    CLI->>Jasmin: connect()
+    CLI->>Jasmin: send command
+    Jasmin-->>CLI: command response
+    CLI-->>Dashboard: parsed connector list
+    Dashboard-->>API: compiled dashboard data
+    API-->>Client: 200 OK (dashboard data)
+
+    %% SMPP Connector Management Flow
+    Client->>API: POST /api/connectors (connector details)
+    API->>Auth: validateToken(token)
+    Auth-->>API: validated user
+    API->>CLI: executeCommand("connector -a")
+    CLI->>Jasmin: connect()
+    CLI->>Jasmin: send command
+    Jasmin-->>CLI: command response
+    CLI-->>API: operation result
+    API->>DB: saveConnectorDetails(connector)
+    DB-->>API: operation result
+    API-->>Client: 201 Created or error
+    API->>WS: publishUpdate("connectors", { action: "created", data: connector })
+    WS-->>Client: WebSocket update (new connector)
+
+    %% Start/Stop Connector Flow
+    Client->>API: PUT /api/connectors/:id/status (action)
+    API->>Auth: validateToken(token)
+    Auth-->>API: validated user
+    API->>CLI: executeCommand("connector -1 {id} -S")
+    CLI->>Jasmin: connect()
+    CLI->>Jasmin: send command
+    Jasmin-->>CLI: command response
+    CLI-->>API: operation result
+    API->>DB: updateConnectorStatus(id, status)
+    DB-->>API: operation result
+    API-->>Client: 200 OK or error
+    API->>WS: publishUpdate("connectors", { action: "updated", data: connector })
+    WS-->>Client: WebSocket update (status change)
+
+    %% Routing Management Flow
+    Client->>API: POST /api/routes (route details)
+    API->>Auth: validateToken(token)
+    Auth-->>API: validated user
+    API->>CLI: executeCommand("morouter -a")
+    CLI->>Jasmin: connect()
+    CLI->>Jasmin: send command
+    Jasmin-->>CLI: command response
+    CLI-->>API: operation result
+    API->>DB: saveRouteDetails(route)
+    DB-->>API: operation result
+    API-->>Client: 201 Created or error
+
+    %% SMS Sending Flow
+    Client->>API: POST /api/sms/send (message details)
+    API->>Auth: validateToken(token)
+    Auth-->>API: validated user
+    API->>HTTP: sendSMS(params)
+    HTTP->>Jasmin: HTTP API request
+    Jasmin-->>HTTP: message ID or error
+    HTTP-->>API: operation result
+    API->>DB: saveMessageDetails(message)
+    DB-->>API: operation result
+    API-->>Client: 202 Accepted or error
+
+    %% Real-time Statistics Update
+    Jasmin->>Stats: message status update
+    Stats->>DB: updateStatistics(data)
+    Stats->>WS: publishUpdate("statistics", newData)
+    WS-->>Client: WebSocket update (new statistics)
+
+    %% User Management Flow
+    Client->>API: POST /api/users (user details)
+    API->>Auth: validateToken(token)
+    Auth-->>API: validated admin user
+    API->>CLI: executeCommand("user -a")
+    CLI->>Jasmin: connect()
+    CLI->>Jasmin: send command
+    Jasmin-->>CLI: command response
+    CLI-->>API: operation result
+    API->>DB: saveUserDetails(user)
+    DB-->>API: operation result
+    API-->>Client: 201 Created or error
+
+    %% Configuration Backup Flow
+    Client->>API: POST /api/config/backup
+    API->>Auth: validateToken(token)
+    Auth-->>API: validated admin user
+    API->>CLI: executeCommand("persist")
+    CLI->>Jasmin: connect()
+    CLI->>Jasmin: send command
+    Jasmin-->>CLI: command response
+    CLI-->>API: operation result
+    API->>DB: saveBackupRecord(backup)
+    DB-->>API: operation result
+    API-->>Client: 200 OK (backup ID)
+
+    %% Statistics Report Generation
+    Client->>API: GET /api/reports/generate (parameters)
+    API->>Auth: validateToken(token)
+    Auth-->>API: validated user
+    API->>Stats: generateReport(params)
+    Stats->>DB: queryStatistics(params)
+    DB-->>Stats: statistics data
+    Stats-->>API: formatted report
+    API-->>Client: 200 OK (report data/PDF)
