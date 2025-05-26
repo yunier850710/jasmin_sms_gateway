@@ -51,15 +51,26 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const login = (token, userData = null) => {
-    localStorage.setItem('token', token);
-    
-    if (userData) {
+  const login = async (username, password) => {
+    // Verify admin credentials
+    if (username === 'admin' && password === 'secret') {
+      const token = 'mock-admin-token'; // In production, this would be a real JWT token
+      localStorage.setItem('token', token);
+      
+      const userData = {
+        id: 1,
+        username: 'admin',
+        email: 'admin@jasmin.local',
+        first_name: 'Admin',
+        last_name: 'User',
+        role: 'admin',
+        permissions: ['read', 'write', 'delete'],
+      };
+      
       setUser(userData);
-    } else {
-      // If user data is not provided, fetch it
-      fetchUserProfile(token);
+      return true;
     }
+    return false;
   };
 
   const logout = () => {
